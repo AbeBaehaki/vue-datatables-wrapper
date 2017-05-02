@@ -1,6 +1,8 @@
 # vue-datatables
 
-> DataTables' jQuery plugin integration for Vue.js
+DataTables' jQuery plugin integration for Vue.js
+
+Separation of concerns from [this](https://github.com/RodrigoBalest/vuejs-datatables-jqueryui-dialogs). Inspired by [this](https://willvincent.com/blog/making-vuejs-and-datatables-play-nice).
 
 ## Build Setup
 
