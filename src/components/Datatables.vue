@@ -1,7 +1,5 @@
 <template>
-  <div class="datatable-container" v-if="loaded">
-    <table :class="tableClass"></table>
-  </div>
+  <table :class="tableClass"></table>
 </template>
 
 <script>
@@ -10,26 +8,23 @@ import 'datatables.net'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'datatables.net-bs/js/dataTables.bootstrap.js'
 import 'datatables.net-bs/css/dataTables.bootstrap.css'
+import defaultConfig from '../config/datatables/default.js'
 
 export default {
   name: 'datatables',
-  props: ['autoload', 'config', 'tableClass'],
-  data () {
-    return {
-      loaded: false
+  props: ['config', 'tableClass'],
+  computed: {
+    isLoaded () {
+      return $.fn.dataTable.isDataTable(this.$el)
     }
   },
   methods: {
     init () {
-      $(this.$el).DataTable(this.config)
-      this.toggleLoaded()
+      let dtConfig = $.extend({}, defaultConfig, this.config)
+      $(this.$el).DataTable(dtConfig)
     },
     fetchData (from) {
-      !this.loaded && this.init()
-      $(this.$el).DataTable().ajax.url(from).load()
-    },
-    toggleLoaded () {
-      this.loaded = !this.loaded
+      this.isLoaded && $(this.$el).DataTable().ajax.url(from).load()
     },
     bindClick () {
       let vm = this
@@ -45,21 +40,19 @@ export default {
       })
     },
     bindError () {
-      $(this.$el).on('error.dt', function (e, settings, techNote, message) {
-        console.error('An error has been reported by DataTables: ', message)
+      let vm = this
+      // Disable default error mode (alert) from DataTables
+      $.fn.dataTable.ext.errMode = 'none'
+      $(vm.$el).on('error.dt', (e, settings, techNote, message) => {
+        console.error(message)
+        vm.$emit('dt-error', { settings, techNote, message })
       })
     }
   },
   mounted () {
-    this.autoload && this.init()
+    this.init()
     this.bindClick()
     this.bindError()
   }
 }
 </script>
-
-<style lang="scss">
-.datatable-container {
-  padding: 10px;
-}
-</style>

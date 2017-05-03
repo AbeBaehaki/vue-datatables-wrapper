@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <form id="u-search" method="post" name="search" v-on:submit.prevent="onFormSubmit">
+    <form name="search" v-on:submit.prevent="onFormSubmit">
       <input name="userId" placeholder="userId">
       <input type="submit" value="Search">
     </form>
-    <datatables id="dt-autor" ref="dtAutor" :autoload="dtAutoload" :config="dtConfig" :class="dtTableClass" @ver-autor="verAutor"></datatables>
+    <datatables ref="dtAutor" :config="dtConfig" :class="dtTableClass" @dt-error="catchError" @ver-autor="verAutor"></datatables>
   </div>
 </template>
 
 <script>
 import $ from 'jquery'
 import Datatables from './components/Datatables'
-import configDt1 from './config/dt1.js'
+import configDt1 from './config/datatables/dt1.js'
 
 export default {
   name: 'app',
@@ -21,8 +21,7 @@ export default {
   data () {
     return {
       dtConfig: configDt1,
-      dtTableClass: 'table table-bordered',
-      dtAutoload: false,
+      dtTableClass: 'table table-bordered datatable',
       baseUrl: configDt1.ajax.url
     }
   },
@@ -37,6 +36,9 @@ export default {
     },
     verAutor (rowData, ev) {
       console.log(rowData)
+    },
+    catchError (dtError) {
+      console.log(dtError)
     }
   }
 }
@@ -44,17 +46,15 @@ export default {
 
 <style lang="scss">
 #app {
-  box-sizing: border-box;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin: 60px 10px 10px;
-  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
 
-  #dt-autor {
-    width: 90%;
+  .datatable {
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 </style>
