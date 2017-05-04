@@ -8,9 +8,9 @@ export default {
   ],
   columns: [
     {
-      title: 'Ações',
+      title: 'Events',
       render (data, type, row, meta) {
-        return '<button class="btn btn-primary btn-xs ver-autor" data-action="ver-autor">Ver autor</button>'
+        return '<button class="btn btn-primary btn-xs" data-action="userEvent">userEvent</button>'
       }
     },
     {
@@ -22,7 +22,7 @@ export default {
       data: 'id'
     },
     {
-      title: 'Título',
+      title: 'Title',
       data: 'title'
     }
   ]

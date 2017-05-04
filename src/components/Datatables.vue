@@ -5,10 +5,8 @@
 <script>
 import $ from 'jquery'
 import 'datatables.net'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'datatables.net-bs/js/dataTables.bootstrap.js'
-import 'datatables.net-bs/css/dataTables.bootstrap.css'
-import defaultConfig from '../config/datatables/default.js'
+import 'datatables.net-dt/css/jquery.dataTables.css'
+import defaults from '../config/datatables/default.js'
 
 export default {
   name: 'datatables',
@@ -20,7 +18,7 @@ export default {
   },
   methods: {
     init () {
-      let dtConfig = $.extend({}, defaultConfig, this.config)
+      let dtConfig = Object.assign({}, defaults, this.config)
       $(this.$el).DataTable(dtConfig)
     },
     fetchData (from) {
