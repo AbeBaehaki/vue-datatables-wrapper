@@ -3,6 +3,7 @@ export default {
     url: 'https://jsonplaceholder.typicode.com/posts',
     dataSrc: ''
   },
+  ordering: true,
   order: [
     [3, 'asc']
   ],

@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     <form name="search" v-on:submit.prevent="onSearch">
-      <input name="userId" placeholder="Type in the userId...">
-      <input type="submit" value="Search">
+      <input name="userId" placeholder="Type in the User ID...">
+      <input type="submit" value="search">
+      <button type="button" @click="refreshReset">refresh with paging reset</button>
+      <button type="button" @click="refreshKeep">refresh without paging reset</button>
     </form>
     <datatables ref="dtwUser"
       :config="dtwConfig"
@@ -36,6 +38,13 @@ export default {
       let params = $(form).serialize()
       let fromUrl = `${this.dtwBaseUrl}?${params}`
       this.$refs.dtwUser.fetchData(fromUrl)
+    },
+    refreshReset () {
+      let reset = true
+      this.$refs.dtwUser.refresh(reset)
+    },
+    refreshKeep () {
+      this.$refs.dtwUser.refresh()
     },
     handleUserEvent (rowData, ev) {
       console.log(rowData)

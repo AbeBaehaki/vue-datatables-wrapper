@@ -24,6 +24,9 @@ export default {
     fetchData (from) {
       this.isLoaded && $(this.$el).DataTable().ajax.url(from).load()
     },
+    refresh (resetPaging) {
+      this.isLoaded && $(this.$el).DataTable().ajax.reload(null, !!resetPaging)
+    },
     bindClick () {
       let vm = this
       // Trigger event when inner link|button is clicked

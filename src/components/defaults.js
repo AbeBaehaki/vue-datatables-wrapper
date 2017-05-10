@@ -1,4 +1,5 @@
 export default {
+  autoWidth: false,
   columns: [
     {
       title: 'Events',
