@@ -6,7 +6,7 @@
 import $ from 'jquery'
 import 'datatables.net'
 import 'datatables.net-dt/css/jquery.dataTables.css'
-import defaults from '../config/datatables/default.js'
+import defaults from './defaults.js'
 
 export default {
   name: 'datatables',
@@ -33,7 +33,7 @@ export default {
         // The 'data-action' prop holds the event name
         if ($btn.data('action')) {
           let rowData = $(vm.$el).DataTable().row($btn.parents('tr')).data()
-          vm.$emit($btn.data('action'), rowData, ev)
+          vm.$emit(`dtw:${$btn.data('action')}`, rowData, ev)
         }
       })
     },
@@ -42,8 +42,7 @@ export default {
       // Disable default error mode (alert) from DataTables
       $.fn.dataTable.ext.errMode = 'none'
       $(vm.$el).on('error.dt', (e, settings, techNote, message) => {
-        console.error(message)
-        vm.$emit('dt-error', { settings, techNote, message })
+        vm.$emit('dtw:error', { settings, techNote, message })
       })
     }
   },

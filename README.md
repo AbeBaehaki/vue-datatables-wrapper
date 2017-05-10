@@ -1,8 +1,10 @@
-# vue-datatables
+# vue-datatables-wrapper
 
 [DataTables](https://datatables.net/) wrapper for Vue.js.
 
 Separation of concerns from [this](https://github.com/RodrigoBalest/vuejs-datatables-jqueryui-dialogs). Inspired by [this](https://willvincent.com/blog/making-vuejs-and-datatables-play-nice).
+
+Work in progress...
 
 ## Build Setup
 

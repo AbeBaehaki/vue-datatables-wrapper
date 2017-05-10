@@ -9,8 +9,8 @@ export default {
   columns: [
     {
       title: 'Events',
-      render (data, type, row, meta) {
-        return '<button class="btn btn-primary btn-xs" data-action="userEvent">userEvent</button>'
+      render: function (data, type, row, meta) {
+        return '<button data-action="userEvent">userEvent</button>'
       }
     },
     {
